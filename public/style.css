@@ -1,5 +1,5 @@
-﻿/* ==========================================
-   Chatbot AI â€” style.css (v5, logo robot AI buatan sendiri)
+/* ==========================================
+   Chatbot AI — style.css (v5, logo robot AI buatan sendiri)
    Cocok dengan: .chat-container, .chat-header,
    .chat-box, .message (.user / .bot),
    .message-content, .chat-form
@@ -117,4 +117,291 @@ body {
     overflow: hidden;
     -webkit-backdrop-filter: blur(24px) saturate(150%);
     backdrop-filter: blur(24px) saturate(150%);
+}
+
+/* ---------- Header ---------- */
+
+.chat-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--line);
+}
+
+/* Logo robot AI (digambar dengan CSS) */
+.chat-header::before {
+    content: "";
+    width: 1em;
+    height: 1em;
+    font-size: 48px;
+    flex-shrink: 0;
+    border-radius: .33em;
+    background: var(--face), var(--accent-grad);
+    box-shadow:
+        0 10px 22px -8px var(--accent-1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.chat-header h1 {
+    font-size: 1.08rem;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+}
+
+.chat-header h1::after {
+    content: "Siap membantu kamu";
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--muted);
+}
+
+/* Titik status online */
+.chat-header::after {
+    content: "";
+    position: absolute;
+    left: 56px;
+    top: 50%;
+    margin-top: 8px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--online);
+    border: 2.5px solid var(--bg);
+    animation: ping 2.4s infinite;
+}
+
+@keyframes ping {
+    0%   { box-shadow: 0 0 0 0 rgba(47, 212, 127, 0.55); }
+    70%  { box-shadow: 0 0 0 8px rgba(47, 212, 127, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(47, 212, 127, 0); }
+}
+
+/* ---------- Area pesan ---------- */
+
+.chat-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 28px 22px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    /* pesan memudar halus di tepi atas & bawah */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%);
+}
+
+.chat-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 8px;
+}
+
+/* ---------- Pesan ---------- */
+
+.message {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    max-width: 86%;
+    animation: pop-in 0.3s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.message-content {
+    padding: 12px 17px;
+    border-radius: 22px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* Sapaan awal dari HTML: abaikan spasi & baris baru kode */
+.message:first-child .message-content {
+    white-space: normal;
+}
+
+/* Bot: logo robot + bubble kaca */
+.message.bot {
+    align-self: flex-start;
+}
+
+.message.bot::before {
+    content: "";
+    width: 1em;
+    height: 1em;
+    font-size: 34px;
+    flex-shrink: 0;
+    border-radius: .35em;
+    background: var(--face), var(--accent-grad);
+    box-shadow: 0 6px 14px -6px var(--accent-1);
+}
+
+.message.bot .message-content {
+    background: var(--bot-bubble);
+    border: 1px solid var(--line);
+    border-bottom-left-radius: 6px;
+    box-shadow: 0 8px 22px -14px rgba(40, 30, 120, 0.5);
+}
+
+/* User: bubble gradient */
+.message.user {
+    align-self: flex-end;
+}
+
+.message.user .message-content {
+    background: var(--accent-grad);
+    color: var(--on-accent);
+    border-bottom-right-radius: 6px;
+    box-shadow: 0 12px 26px -12px var(--accent-1);
+}
+
+/* Bubble bot kosong (menunggu stream) → indikator mengetik */
+.message.bot .message-content:empty {
+    width: 66px;
+    height: 42px;
+    position: relative;
+}
+
+.message.bot .message-content:empty::before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    margin-top: -3.5px;
+    border-radius: 50%;
+    background: var(--accent-1);
+    box-shadow: 13px 0 0 var(--accent-1), 26px 0 0 var(--accent-1);
+    animation: typing 1.2s infinite ease-in-out;
+}
+
+@keyframes typing {
+    0%, 100% { opacity: 0.3; transform: translateY(0); }
+    50%      { opacity: 1;   transform: translateY(-2px); }
+}
+
+@keyframes pop-in {
+    from { opacity: 0; transform: translateY(10px) scale(0.98); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* ---------- Form input ---------- */
+
+.chat-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 18px 18px;
+    padding: 7px 7px 7px 22px;
+    background: var(--glass-strong);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    box-shadow: 0 14px 34px -20px rgba(40, 30, 120, 0.6);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.chat-form:focus-within {
+    border-color: var(--accent-1);
+    box-shadow: 0 0 0 4px var(--ring), 0 14px 34px -20px rgba(40, 30, 120, 0.6);
+}
+
+.chat-form input {
+    flex: 1;
+    min-width: 0;
+    padding: 11px 0;
+    font: inherit;
+    color: var(--text);
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.chat-form input::placeholder {
+    color: var(--muted);
+}
+
+.chat-form button {
+    padding: 12px 26px;
+    font: inherit;
+    font-weight: 700;
+    color: var(--on-accent);
+    background: var(--accent-grad);
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 10px 20px -8px var(--accent-1), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transition: transform 0.15s, filter 0.15s, box-shadow 0.15s;
+}
+
+.chat-form button:hover:not(:disabled) {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
+
+.chat-form button:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+.chat-form button:focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 2px;
+}
+
+/* Saat JS men-disable input & tombol */
+.chat-form input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.chat-form button:disabled {
+    opacity: 0.65;
+    cursor: wait;
+    box-shadow: none;
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 600px) {
+    body {
+        padding: 0;
+    }
+
+    .chat-container {
+        max-height: none;
+        border: none;
+        border-radius: 0;
+    }
+
+    .chat-box {
+        padding: 22px 14px;
+    }
+
+    .message {
+        max-width: 94%;
+    }
+
+    .chat-form {
+        margin: 0 12px 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .chat-box {
+        scroll-behavior: auto;
+    }
+
+    .message,
+    .chat-header::after,
+    .message.bot .message-content:empty::before {
+        animation: none;
+    }
 }
