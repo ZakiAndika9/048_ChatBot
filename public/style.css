@@ -1,0 +1,120 @@
+﻿/* ==========================================
+   Chatbot AI â€” style.css (v5, logo robot AI buatan sendiri)
+   Cocok dengan: .chat-container, .chat-header,
+   .chat-box, .message (.user / .bot),
+   .message-content, .chat-form
+   Logo robot digambar murni dengan CSS (bukan emoji/gambar)
+   (tidak perlu mengubah HTML).
+   ========================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+
+:root {
+    --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+    /* Warna dasar (terang) */
+    --bg: #f3f2fb;
+    --glass: rgba(255, 255, 255, 0.7);
+    --glass-strong: rgba(255, 255, 255, 0.92);
+    --text: #1d1b34;
+    --muted: #7a7894;
+    --line: rgba(60, 50, 130, 0.12);
+
+    /* Aksen */
+    --accent-1: #6d5dfc;
+    --accent-2: #3aa0ff;
+    --accent-grad: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    --on-accent: #ffffff;
+    --online: #2fd47f;
+
+    /* ---- Wajah robot AI (murni CSS, skala mengikuti font-size elemen) ---- */
+    --face:
+        radial-gradient(closest-side, #e6fdff 0, #62e6ff 50%, rgba(98, 230, 255, 0) 100%) .22em .28em / .26em .3em no-repeat,
+        radial-gradient(closest-side, #e6fdff 0, #62e6ff 50%, rgba(98, 230, 255, 0) 100%) .52em .28em / .26em .3em no-repeat,
+        radial-gradient(circle closest-side, #ffe27a 90%, transparent 100%) .44em .0em / .12em .12em no-repeat,
+        linear-gradient(rgba(255, 255, 255, .95), rgba(255, 255, 255, .95)) .48em .1em / .04em .19em no-repeat,
+        radial-gradient(closest-side, rgba(255, 255, 255, .95) 80%, transparent 100%) .39em .69em / .22em .07em no-repeat,
+        linear-gradient(#17134a, #17134a) .31em .28em / .38em .3em no-repeat,
+        radial-gradient(circle closest-side, #17134a 94%, transparent 100%) .16em .28em / .3em .3em no-repeat,
+        radial-gradient(circle closest-side, #17134a 94%, transparent 100%) .54em .28em / .3em .3em no-repeat;
+
+    --bot-bubble: rgba(255, 255, 255, 0.96);
+    --shadow: 0 30px 70px -24px rgba(70, 55, 160, 0.4);
+    --ring: rgba(109, 93, 252, 0.28);
+
+    --orb-1: rgba(109, 93, 252, 0.38);
+    --orb-2: rgba(58, 160, 255, 0.32);
+    --orb-3: rgba(255, 120, 190, 0.24);
+
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0b0a18;
+        --glass: rgba(24, 22, 50, 0.7);
+        --glass-strong: rgba(34, 31, 66, 0.92);
+        --text: #ecebfa;
+        --muted: #9390b3;
+        --line: rgba(255, 255, 255, 0.09);
+
+        --bot-bubble: rgba(40, 37, 78, 0.92);
+        --shadow: 0 30px 70px -24px rgba(0, 0, 0, 0.8);
+        --ring: rgba(130, 118, 255, 0.38);
+
+        --orb-1: rgba(109, 93, 252, 0.32);
+        --orb-2: rgba(58, 160, 255, 0.2);
+        --orb-3: rgba(255, 120, 190, 0.15);
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+::selection {
+    background: var(--accent-1);
+    color: var(--on-accent);
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-family: var(--font);
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--text);
+    background:
+        radial-gradient(640px 440px at 10% 6%, var(--orb-1), transparent 70%),
+        radial-gradient(580px 480px at 92% 18%, var(--orb-2), transparent 70%),
+        radial-gradient(540px 440px at 50% 104%, var(--orb-3), transparent 70%),
+        var(--bg);
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Container ---------- */
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 780px;
+    height: 100%;
+    max-height: 880px;
+    background: var(--glass);
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    overflow: hidden;
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    backdrop-filter: blur(24px) saturate(150%);
+}
